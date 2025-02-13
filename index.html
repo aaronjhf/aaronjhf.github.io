@@ -3,44 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Profile - Your Name</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Academic Portfolio</title>
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Your Name</h1>
-        <p>Title | Department | University</p>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#research">Research</a>
-            <a href="#publications">Publications</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
-    <main class="container">
-        <section id="about">
-            <h2>About Me</h2>
-            <p>Brief bio goes here...</p>
+
+    <!-- Main Container -->
+    <div class="wrapper">
+        
+        <!-- Header Section -->
+        <header>
+            <h1>Your Name</h1>
+            <p>Researcher | Department | University</p>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content Section -->
+        <section>
+            <!-- About Section -->
+            <h2 id="about">About Me</h2>
+            <p>Welcome to my academic portfolio. I am a [Your Position] at [Your University/Institute], specializing in [Your Research Area]. My work primarily focuses on [Brief Overview of Research Interests].</p>
+
+            <hr>
+
+            <!-- Publications Section -->
+            <h2 id="publications">Selected Publications</h2>
+            
+            <!-- Paper 1 -->
+            <article class="paper">
+                <h3>Title of Paper 1</h3>
+                <p class="abstract">
+                    This paper explores the impact of [Research Topic] on [Field]. We propose a novel approach to [Problem], demonstrating its effectiveness through extensive experimentation.
+                </p>
+                <ul class="links">
+                    <li><a href="https://arxiv.org/abs/example1" target="_blank">arXiv</a></li>
+                    <li><a href="https://www.example.com/lecture1" target="_blank">Lecture Recording</a></li>
+                    <li><a href="https://www.example.com/slides1" target="_blank">Slides</a></li>
+                    <li><a href="https://github.com/username/repo1" target="_blank">GitHub</a></li>
+                </ul>
+            </article>
+
+            <!-- Paper 2 -->
+            <article class="paper">
+                <h3>Title of Paper 2</h3>
+                <p class="abstract">
+                    In this study, we investigate [Research Question] and introduce a new framework for [Method]. Our findings reveal significant improvements in [Results].
+                </p>
+                <ul class="links">
+                    <li><a href="https://arxiv.org/abs/example2" target="_blank">arXiv</a></li>
+                    <li><a href="https://www.example.com/lecture2" target="_blank">Lecture Recording</a></li>
+                    <li><a href="https://www.example.com/slides2" target="_blank">Slides</a></li>
+                    <li><a href="https://github.com/username/repo2" target="_blank">GitHub</a></li>
+                </ul>
+            </article>
+
+            <!-- Add more papers as needed -->
+            <hr>
         </section>
-        <section id="research">
-            <h2>Research Interests</h2>
-            <p>Details about research interests...</p>
-        </section>
-        <section id="publications">
-            <h2>Publications</h2>
-            <ul>
-                <li>Publication 1</li>
-                <li>Publication 2</li>
-                <li>Publication 3</li>
-            </ul>
-        </section>
-        <section id="contact">
-            <h2>Contact Information</h2>
-            <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Your Name. All rights reserved.</p>
-    </footer>
+
+        <!-- Footer Section -->
+        <footer>
+            <p>&copy; 2025 Your Name. All rights reserved.</p>
+            <p>Contact: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+        </footer>
+    </div>
+
 </body>
 </html>

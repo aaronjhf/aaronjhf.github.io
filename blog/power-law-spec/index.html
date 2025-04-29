@@ -23,14 +23,16 @@
         </header>
   
         <div class="article-style">
-          <p>In this post we will calculate the spectral densities for power-law data and use the implementation to study natural data more closely. It has been observed that 
-            the rank-ordered eigenvalues of the covariance matrices of natural datasets exhibit a power-law falloff. This is upstream of the scaling laws that have been observed for the loss curves of models versus model size and training set size.
+          <p> It has been observed that the rank-ordered eigenvalues of the covariance matrices of natural datasets exhibit a power-law falloff. This is upstream of the scaling laws that have been observed for the loss curves of models versus model size and training set size.
+            In this post I numerically calculate the spectral densities for power-law data and use the implementation to study natural data more closely.
             The case of Gaussian input data, yielding the famous Marchenko-Pastur law for its eigenvalue distribution, already provides the qualitative picture of double-descent and its mitigation by regularization, but does not exhibit power-law behavior. 
           </p>
 
           <!-- Side-by-side figs of e.g. MNIST power-law and with ReLU extending -->
   
-          <p>It will be useful to briefly recapitulate the derivation of the Marcenk-Pastur distribution from the matrix resolvent, which is computed by the cavity method.</p>
+          <p>It will be useful to recall the matrix resolvent, the S-transform, and its relationship to the spectral density that we are after.  The matrix resolvent of a matrix $$A$$ is:</p>
+
+          $$ \mathbf{G}_{\mathbf{A}}  = (z \mathbf{I}-\mathbf{A})^{-1}$$
           
   
           <figure>

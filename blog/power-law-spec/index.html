@@ -7,7 +7,7 @@
     <!-- highlight.js, fancybox, fonts… -->
     <script src="/js/mathjax-config.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" async></script>
-    <title>My First Blog Post | Aaron Hillman</title>
+    <title>Power Law Spectral Densities and Natural Data | Aaron Hillman</title>
   </head>
 
   <body>
@@ -16,22 +16,27 @@
     <div class="universal-wrapper pt-3">
       <article>
         <header class="article-header">
-          <h1 class="article-title">My First Blog Post</h1>
+          <h1 class="article-title">Power Law Spectral Densities and Natural Data</h1>
           <div class="article-metadata">
             <span class="article-date">April 29, 2025</span>
           </div>
         </header>
   
         <div class="article-style">
-          <p>This is ordinary text, just like in your other posts.</p>
+          <p>In this post we will calculate the spectral densities for power-law data and use the implementation to study natural data more closely. It has been observed that 
+            the rank-ordered eigenvalues of the covariance matrices of natural datasets exhibit a power-law falloff. This is upstream of the scaling laws that have been observed for the loss curves of models versus model size and training set size.
+            The case of Gaussian input data, yielding the famous Marchenko-Pastur law for its eigenvalue distribution, already provides the qualitative picture of double-descent and its mitigation by regularization, but does not exhibit power-law behavior. 
+          </p>
+
+          <!-- Side-by-side figs of e.g. MNIST power-law and with ReLU extending -->
   
-          <p>Here’s an inline equation: $E = mc^2$, and here’s a displayed one:</p>
-          $$\int_{-\infty}^\infty e^{-x^2}\,dx = \sqrt{\pi}$$
+          <p>It will be useful to briefly recapitulate the derivation of the Marcenk-Pastur distribution from the matrix resolvent, which is computed by the cavity method.</p>
+          
   
           <figure>
             <!-- put your image into the repo’s images folder -->
-            <img src="/images/diagram.png" alt="A helpful diagram">
-            <figcaption>Figure 1. My diagram.</figcaption>
+            <img src="/figures/wishart_white_q1_3.png" alt="white wishart">
+            <figcaption>Figure 1. White wishart, Marchenko-Pastur.</figcaption>
           </figure>
   
           <p>More text below the image…</p>

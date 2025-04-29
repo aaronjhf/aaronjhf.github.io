@@ -1,14 +1,30 @@
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Source Themes Academic 4.5.0">
-    <meta name="author" content="Aaron Hillman">
-    <link rel="stylesheet" href="/css/academic.min.4731b10c3a8aac85ab261b8ce101e025.css">
-    <!-- highlight.js, fancybox, fonts… -->
-    <script src="/js/mathjax-config.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" async></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.5.0">
+  <meta name="author" content="Aaron Hillman">
+  <link rel="stylesheet" href="/css/academic.min.4731b10c3a8aac85ab261b8ce101e025.css">
+  
+    <!-- 1) MathJax v3 config -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$'], ['\\[','\\]']]
+        }
+      };
+    </script>
+  
+    <!-- 2) MathJax v3 loader -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+      async>
+    </script>
+  
     <title>Power Law Spectral Densities and Natural Data | Aaron Hillman</title>
   </head>
+
+
 
   <body>
     <!-- copy over your <nav>…</nav> from index.html -->
@@ -30,13 +46,13 @@
 
           <!-- Side-by-side figs of e.g. MNIST power-law and with ReLU extending -->
   
-          <p>It will be useful to recall the matrix resolvent, the $S$-transform, and its relationship to the spectral density that we are after.  The matrix resolvent of an $N \times N$ matrix $A$ is:</p>
+          <p>It will be useful to recall the matrix resolvent, the $S$-transform, and their relationship to the spectral density that we are after.  The matrix resolvent of an $N \times N$ matrix $A$ is:</p>
 
           $$ \mathbf{G}_{\mathbf{A}}  = (z \mathbf{I}-\mathbf{A})^{-1}$$
           
-          <p> The $S$-transform of the matrix resolvent is a scalar function obtained by taking the normalized trace </p>
+          <p> The $S$-transform of the matrix $A$ is a scalar function obtained by taking the normalized trace </p>
 
-          $$g_{\mathbf{A}}(z) = \frac{1}{N} \Tr[\mathbf{G}_{\mathbf{A}}(z)]$$
+          $$g_{\mathbf{A}}(z) = \frac{1}{N} \text{Tr}[\mathbf{G}_{\mathbf{A}}(z)] = \frac{1}{N}\sum\limits_k \frac{1}{\lambda_k-z}$$
   
           <figure>
             <!-- put your image into the repo’s images folder -->

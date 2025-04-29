@@ -30,10 +30,13 @@
 
           <!-- Side-by-side figs of e.g. MNIST power-law and with ReLU extending -->
   
-          <p>It will be useful to recall the matrix resolvent, the S-transform, and its relationship to the spectral density that we are after.  The matrix resolvent of a matrix $A$ is:</p>
+          <p>It will be useful to recall the matrix resolvent, the $S$-transform, and its relationship to the spectral density that we are after.  The matrix resolvent of an $N \times N$ matrix $A$ is:</p>
 
           $$ \mathbf{G}_{\mathbf{A}}  = (z \mathbf{I}-\mathbf{A})^{-1}$$
           
+          <p> The $S$-transform of the matrix resolvent is a scalar function obtained by taking the normalized trace </p>
+
+          $$g_{\mathbf{A}}(z) = \frac{1}{N} \Tr[\mathbf{G}_{\mathbf{A}}(z)]$$
   
           <figure>
             <!-- put your image into the repo’s images folder -->

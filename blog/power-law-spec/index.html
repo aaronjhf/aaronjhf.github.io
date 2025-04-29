@@ -63,6 +63,27 @@
           </p>
 
           $$\lim_{\epsilon \to 0}\text{Im}[g(z+i\epsilon)] = \pi \rho(z) $$
+
+          The matrices we want to apply this to are sample covariance matrices for input data with design matrix $X^{\alpha, i} \in \mathbb{R}^{P \times D}$ drawn from Gaussian with population covariance
+
+          $$\Sigma_P = \text{diag}(1, \dots, \lambda_k, \dots \lambda_D) $$
+
+          <p>with $\lambda_k \sim k^{-\alpha}$ for some non-negative exponent $\alpha$.  The classic Marchenko-Pastur case corresponds to $\alpha = 0$.  We want to compute the $S$-transform of the sample covariance
+          </p>
+          $$ \Sigma_S = X^T X/P $$
+          <p>in the limit as $P, D \to \infty$ with $q = D/P$ held fixed. The theory curve for sample covariances in the large dimension limit are what we will compare to the empirical
+            sample covariances for natural data, such computer vision datasets like CIFAR-10 and MNIST, or natural language datasets like Wikitext.
+          </p>
+
+          <p> The final ingredient needed is the most non-trivial: the self-consistent equation for $g(z)$. This is the Silverstein equation: </p>
+
+          $$ g(z) = \int \frac{1}{t \Delta +z}dH(t) $$
+
+          <p>where $\Delta$ is</p>
+          
+          $$\Delta = -1+q-qzg(z) $$
+
+          <p> and $dH(t)$ is the density of the eigenvalues of the population covariance matrix, $dH(t) \sim t^{-1-1/\alpha}$.</p>
           <figure>
             <!-- put your image into the repo’s images folder -->
             <img src="figures/wishart_white_q1_3.png" alt="white wishart">

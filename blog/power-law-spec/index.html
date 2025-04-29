@@ -39,6 +39,8 @@
         </header>
   
         <div class="article-style">
+          <h2>Background</h2>
+
           <p> It has been observed that the rank-ordered eigenvalues of the covariance matrices of natural datasets exhibit a power-law falloff. This is upstream of the scaling laws that have been observed for the loss curves of models versus model size and training set size.
             In this post I numerically calculate the spectral densities for power-law data and use the implementation to study natural data more closely.
             The case of Gaussian input data, yielding the famous Marchenko-Pastur law for its eigenvalue distribution, already provides the qualitative picture of double-descent and its mitigation by regularization, but does not exhibit power-law behavior. 
@@ -87,17 +89,28 @@
             Indeed we recover the usual equation for $g(z)$ for the $\alpha = 0$ case
           </p>
           $$ \frac{1}{g(z)} = z-1-q-qz g(z)  $$
-          <p>This equation can be solved numerically, for $z$ adding a tiny imaginary part. Then $\frac{1}{\pi}\Im[g(z+i\epsilon)]$ gives us our desired spectral density. This classic case is also of course analytically tractable, with</p>
+          <p>This equation can be solved numerically, for $z$ adding a tiny imaginary part. Then $\frac{1}{\pi}\text{Im}[g(z+i\epsilon)]$ gives us our desired spectral density. This classic case is also of course analytically tractable, with</p>
           $$g(z) = \frac{z-1-q\pm \sqrt{(\lambda_+-z)(z-\lambda_-) }}{2qz} $$
           <p>with $\lambda_\pm = (1\pm\sqrt(q))^2$. The discontinuity across the branch cut yielding the Marchenko-Pastur distribution</p>
+
             $$\rho(z) =  \frac{\sqrt{(\lambda_+-z)(z-\lambda_-) }}{2\pi qz}$$
+
+          <p>We present the numerical, analytical, and empircal comparison in Fig. 1.  </p>
           <figure>
             <!-- put your image into the repo’s images folder -->
             <img src="figures/wishart_white_q1_3.png" alt="white wishart">
             <figcaption>Figure 1. White wishart, Marchenko-Pastur.</figcaption>
           </figure>
   
-          <p>More text below the image…</p>
+          <p>For finite and generic $\alpha$, the $t$-integral in the self-consistent equation is not analytically tractable, but it can be handled numerically.</p>
+
+          <h2>Numerical Implementation</h2>
+          <p>For numerical implementation we need to be slightly more specific about what we mean by the distribution $dH(t)$.  The integral will not converge without a finite cutoff $\Lambda$. So the distribution </p>
+            $$ dH(t) = \frac{1}{\alpha}\frac{\Lambda^{1/\alpha}}{1-\Lambda^{1/\alpha}}t^{-1-1/\alpha}$$
+          <p>Additionally, in order to improve numerically stability, it is best to use logarithmic variables $\log(t)$ and to divide both sides of the self-consistent equation by $g(z)$. This way, the numerical solver is not 
+            trying to identify cancellations between large numbers, but reliably computes an order-one number looking for a solution.  This form of the self-consistent equation is
+          </p>
+          $$ 1 = \frac{1}{\alpha}\frac{1}{1-\Lambda^{1/\alpha}} \int\limits_{\log(\Lambda)}^0 \frac{e^{t+t/\alpha} }{m_F(\Lambda*\Delta+z e^{t}) }dt$$
         </div>
       </article>
     </div>

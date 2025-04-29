@@ -70,7 +70,7 @@
 
           <p>with $\lambda_k \sim k^{-\alpha}$ for some non-negative exponent $\alpha$.  The classic Marchenko-Pastur case corresponds to $\alpha = 0$.  We want to compute the $S$-transform of the sample covariance
           </p>
-          $$ \Sigma_S = X^T X/P $$
+          $$ \Sigma_S = \frac{X^T X}{P} $$
           <p>in the limit as $P, D \to \infty$ with $q = D/P$ held fixed. The theory curve for sample covariances in the large dimension limit are what we will compare to the empirical
             sample covariances for natural data, such computer vision datasets like CIFAR-10 and MNIST, or natural language datasets like Wikitext.
           </p>
@@ -83,7 +83,14 @@
           
           $$\Delta = -1+q-qzg(z) $$
 
-          <p> and $dH(t)$ is the density of the eigenvalues of the population covariance matrix, $dH(t) \sim t^{-1-1/\alpha}$.</p>
+          <p> and $dH(t)$ is the density of the eigenvalues of the population covariance matrix, $dH(t) \sim t^{-1-1/\alpha}$  for $\alpha > 0$ and $\delta(t-1)$ when $\alpha =0$.
+            Indeed we recover the usual equation for $g(z)$ for the $\alpha = 0$ case
+          </p>
+          $$ \frac{1}{g(z)} = z-1-q-qz g(z)  $$
+          <p>This equation can be solved numerically, for $z$ adding a tiny imaginary part. Then $\frac{1}{\pi}\Im[g(z+i\epsilon)]$ gives us our desired spectral density. This classic case is also of course analytically tractable, with</p>
+          $$g(z) = \frac{z-1-q\pm \sqrt{(\lambda_+-z)(z-\lambda_-) }}{2qz} $$
+          <p>with $\lambda_\pm = (1\pm\sqrt(q))^2$. The discontinuity across the branch cut yielding the Marchenko-Pastur distribution</p>
+            $$\rho(z) =  \frac{z-1-q\pm \sqrt{(\lambda_+-z)(z-\lambda_-) }}{2\pi qz}$$
           <figure>
             <!-- put your image into the repo’s images folder -->
             <img src="figures/wishart_white_q1_3.png" alt="white wishart">

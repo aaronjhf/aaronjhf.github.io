@@ -134,6 +134,32 @@
             </div>
 
             <p>We also provide the fractional excess of the empirical distribution relative to the theory curve. The dispersion is as expected.</p>
+
+         <h2>Natural Data</h2>
+         <p>We can now use our control over the theoretical spectral density for power-law population covariance and compare to natural data. We can start with the most naive comparison, which is to directly compare the sample covariance of the CIFAR-10 training set to 
+          the power-law spectral density implied by its parameters. The first obvious issue with this is that the rank-ordered plot makes pretty manifest that there isn't an unambiguous power, and the falloff looks more like a geometric distribution, as I depict in Fig. 5.
+         </p>   
+
+         <figure>
+          <!-- put your image into the repo’s images folder -->
+          <img src="figures/cifar_eigenvalues.png" alt="white wishart">
+          <figcaption>Figure 5. Rank-ordered, CIFAR-10 training set covariance eigenvalues.</figcaption>
+        </figure>
+
+        <p>There is a power-law stretch initially, but that tail is more than an artifact of finite over-parameterization, clearly. This fact is made completely manifest by the spectral density constructed from that power-law
+          in Fig. 6. </p>
+          <figure>
+            <!-- put your image into the repo’s images folder -->
+            <img src="figures/cifar_spectral_density.png" alt="white wishart">
+            <figcaption>Figure 6. Rank-ordered, CIFAR-10 training set covariance eigenvalues.</figcaption>
+          </figure>
+          <p>The agreement is very poor for the raw CIFAR data, but as has been noted previously, the non-linear activations so central to Neural Networks, are capable of extending the power-law.  And indeed, 
+            it not only serves to extend beyond the trivial rank limitations, but drastically improves the agreement with a power-law spectral density. We see this in Fig. 7.</p>
+            <figure>
+              <!-- put your image into the repo’s images folder -->
+              <img src="figures/relu_cifar.png" alt="white wishart">
+              <figcaption>Figure 6. Rank-ordered, CIFAR-10 training set covariance eigenvalues.</figcaption>
+            </figure>
         </div>
       </article>
     </div>

@@ -180,7 +180,28 @@
             </p>
 
             <h2>Natural Data: Text</h2>
-            It's also interesting to look at natural language. Here the design matrix is contingent on both a tokenization scheme and a choice of embedding dimension. These additional choices make it slightly less clear what q ought to be the ratio of.
+            It's also interesting to look at natural language. Here the design matrix is contingent on both a tokenization scheme and a choice of embedding dimension. For tokenziation I use custom Byte Pair Encoding (BPE)
+            from Hugging face trained on the first 5% of "wikitext-2-raw-v1". I use a vocab size of 8k, and use 100k tokens as the input data whose spectrum I study.  Despite the 100k tokens, there are only 7216 unique
+            tokens, which is roughly consistent with the expectation from Heap's law. In particular, though, an embedding dimension above 7216 will furnish a rank-deficient design matrix. We look at an embedding dimension above and below.
+            After embedding and centering, we apply ReLU and compute the covariance from the ReLU-mapped design matrix. 
+
+            <figure>
+              <!-- put your image into the repo’s images folder -->
+              <img src="figures/relu_cifar.png" alt="white wishart">
+              <figcaption>Figure 7. ReLU mapped CIFAR-10 data, mapped up to 10k feature dimensions.</figcaption>
+            </figure>
+            <p> Systematic deviations do remain at small eigenvalues, though.</p>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
+              <figure style="flex: 1 1 0; text-align: center;">
+                <img src="figures/relu_cifar_zoom.png" alt="structured wishart">
+              <figcaption>Figure 8. .</figcaption>
+              </figure>
+          
+              <figure style="flex: 1 1 0; text-align: center;">
+                <img src="figures/empirical_excess.png" alt="excess figure" style="max-width:100%;">
+                <figcaption>Figure 9. .</figcaption>
+              </figure>
         </div>
       </article>
     </div>

@@ -185,12 +185,6 @@
             tokens, which is roughly consistent with the expectation from Heap's law. In particular, though, an embedding dimension above 7216 will furnish a rank-deficient design matrix. We look at an embedding dimension above and below.
             After embedding and centering, we apply ReLU and compute the covariance from the ReLU-mapped design matrix. 
 
-            <figure>
-              <!-- put your image into the repo’s images folder -->
-              <img src="figures/relu_cifar.png" alt="white wishart">
-              <figcaption>Figure 7. ReLU mapped CIFAR-10 data, mapped up to 10k feature dimensions.</figcaption>
-            </figure>
-            <p> Systematic deviations do remain at small eigenvalues, though.</p>
 
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
@@ -202,15 +196,10 @@
                 <img src="figures/wiki-text-excess-8k.png" alt="excess figure" style="max-width:100%;">
                 <figcaption>Figure 11. .</figcaption>
               </figure>
+            </div>
               With $n_embed = 8k$ we have an implied $q ~1.1$. We produce the above theory curve with $q = 1.14$ and a Zipfian $\alpha = 1$.  We see quite a good fit, and again structure to 
               log-periodic structure to the excess density at smaller eigenvalues.  We can make a separate comparison with an embedding dimension $n_embed = 4k$.  In this case we get Fig. 12 and Fig. 13.
-              <figure>
-                <!-- put your image into the repo’s images folder -->
-                <img src="figures/relu_cifar.png" alt="white wishart">
-                <figcaption>Figure 7. ReLU mapped CIFAR-10 data, mapped up to 10k feature dimensions.</figcaption>
-              </figure>
-              <p> Systematic deviations do remain at small eigenvalues, though.</p>
-  
+              
               <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
                 <figure style="flex: 1 1 0; text-align: center;">
                   <img src="figures/wiki-text-spec-4k.png" alt="structured wishart">
@@ -221,6 +210,7 @@
                   <img src="figures/wiki-text-excess-4k.png" alt="excess figure" style="max-width:100%;">
                   <figcaption>Figure 13. .</figcaption>
                 </figure>
+              </div>
         </div>
       </article>
     </div>

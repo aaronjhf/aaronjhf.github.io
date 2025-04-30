@@ -135,7 +135,7 @@
 
             <p>We also provide the fractional excess of the empirical distribution relative to the theory curve. The dispersion is as expected.</p>
 
-         <h2>Natural Data</h2>
+         <h2>Natural Data: Images</h2>
          <p>We can now use our control over the theoretical spectral density for power-law population covariance and compare to natural data. We can start with the most naive comparison, which is to directly compare the sample covariance of the CIFAR-10 training set to 
           the power-law spectral density implied by its parameters. The first obvious issue with this is that the rank-ordered plot makes pretty manifest that there isn't an unambiguous power, and the falloff looks more like a geometric distribution, as I depict in Fig. 5.
          </p>   
@@ -174,7 +174,12 @@
                 <figcaption>Figure 9. .</figcaption>
               </figure>
             </div>
+            <p>This excess is the same effect as the log-periodic oscillations observed around the rank-ordered eigenvalue plot of natural language data about the Zipf's law prediction. From this point of view, the pure CIFAR-10 data is perhaps critically overdamped And
+              fails to make it through a even a half-cycle of oscillation. The ReLU mapping improves the power-law and reveals two clear periods of oscillation in the spectral density with about period of about a decade. Perhaps the phenomenon of log-periodic oscillations in the spectra of natural data
+              around a power-law has a universality.
+            </p>
 
+            <h2>Natural Data: Text</h2>
         </div>
       </article>
     </div>

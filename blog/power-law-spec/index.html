@@ -111,12 +111,21 @@
             trying to identify cancellations between large numbers, but reliably computes an order-one number when looking for a solution.  This form of the self-consistent equation is
           </p>
           $$ 1 = \frac{1}{\alpha}\frac{1}{1-\Lambda^{1/\alpha}} \int\limits_{\log(\Lambda)}^0 \frac{e^{t+t/\alpha} }{g(z)(\Lambda*\Delta+z e^{t}) }dt$$
-          <p>We compare the numerical solution to data for $\alpha = 1.7$ and $q = 2$ in Fig.2. </p>
+          <p>We compare the numerical solution to data for $\alpha = 1.5$ and $q = 2$ in Fig. 2, with compelling agreement. </p>
           <figure>
             <!-- put your image into the repo’s images folder -->
             <img src="figures/wishart_power_q2.png" alt="structured wishart">
             <figcaption>Figure 2. Structured wishart.</figcaption>
           </figure>
+
+          <p>Close to equiparameterization, we see two power-laws for two parts of the distribution, depicted for $\alpha = 1.7$ and $q = .99$ in Fig. 3. The larger eigenvalues fall as that population density dictates
+            $\sim z^{-1-/\alpha}$ before transitioning to the $z^{-1/2}$ falloff of the density of smaller eigenvalues. </p>
+
+            <figure>
+              <!-- put your image into the repo’s images folder -->
+              <img src="figures/wishart_q99.png" alt="structured wishart">
+              <figcaption>Figure 3. Equiparameterized, structured wishart.</figcaption>
+            </figure>
         </div>
       </article>
     </div>

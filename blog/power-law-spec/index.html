@@ -43,12 +43,14 @@
 
           <p> It has been observed that the rank-ordered eigenvalues of the covariance matrices of natural datasets exhibit a power-law falloff. This is upstream of the scaling laws that have been observed for the loss curves of models versus model size and training set size.
             In this post I numerically calculate the spectral densities for power-law data and use the implementation to study natural data more closely.
-            The case of Gaussian input data, yielding the famous Marchenko-Pastur law for its eigenvalue distribution, already provides the qualitative picture of double-descent and its mitigation by regularization, but does not exhibit power-law behavior. 
+            The case of Gaussian input data, yielding the famous Marchenko-Pastur law for its eigenvalue distribution, already provides the qualitative picture of double-descent and its mitigation by regularization, but does not exhibit power-law behavior and is not sensible 
+            to compare directly to natural data or feature-mapped natural data.  For this reason, I develop a numerical implementation of the Silverstein equation, which I use to compute the theoretical sample spectral densities in the large 
+            dimension limit, at finite overparameterization. Then I compare to natural image and text datasets where we see vastly improved fits to non-linearly mapped data, as well as interesting structure to the deviations from theory.
           </p>
 
           <!-- Side-by-side figs of e.g. MNIST power-law and with ReLU extending -->
   
-          <p>It will be useful to recall the matrix resolvent, the $S$-transform, and their relationship to the spectral density that we are after.  The matrix resolvent of an $N \times N$ matrix $A$ is:</p>
+          <p>It is useful to recall the matrix resolvent, the $S$-transform, and their relationship to the spectral density that I want to compute.  The matrix resolvent of an $N \times N$ matrix $A$ is:</p>
 
           $$ \mathbf{G}_{\mathbf{A}}  = (z \mathbf{I}-\mathbf{A})^{-1}$$
           
@@ -60,8 +62,8 @@
 
           $$g(z) = \int\limits_{-\infty}^\infty \frac{\rho(z)}{\lambda-z}d\lambda $$
 
-          <p>This relationship, and its inversion, are crucial as there exists a self-consistent equation for $g(z)$ which we can leverage to determine the spectral density.
-            The inversion of the above relationship is given by:
+          <p>This equation and its inverse are crucial as there exists a self-consistent equation for $g(z)$ which we can then leverage to determine the spectral density.
+            The inversion of the above is:
           </p>
 
           $$\lim_{\epsilon \to 0}\text{Im}[g(z+i\epsilon)] = \pi \rho(z) $$
@@ -73,8 +75,8 @@
           <p>with $\lambda_k \sim k^{-\alpha}$ for some non-negative exponent $\alpha$.  The classic Marchenko-Pastur case corresponds to $\alpha = 0$.  We want to compute the $S$-transform of the sample covariance
           </p>
           $$ \Sigma_S = \frac{X^T X}{P} $$
-          <p>in the limit as $P, D \to \infty$ with $q = D/P$ held fixed. The theory curve for sample covariances in the large dimension limit are what we will compare to the empirical
-            sample covariances for natural data, such computer vision datasets like CIFAR-10 and MNIST, or natural language datasets like Wikitext.
+          <p>in the limit as $P, D \to \infty$ with $q = D/P$ held fixed. The theoritcal distribution of sample covariance eigenvalues in the large dimension limit is what we will compare to the empirical
+            sample covariance eigenvalue distributions for natural data, such as CIFAR-10 and Wikitext.
           </p>
 
           <p> The final ingredient needed is the most non-trivial: the self-consistent equation for $g(z)$. This is the Silverstein equation: </p>
@@ -89,11 +91,11 @@
             Indeed we recover the usual equation for $g(z)$ for the $\alpha = 0$ case
           </p>
           $$ \frac{1}{g(z)} = z-1-q-qz g(z)  $$
-          <p>This equation can be solved numerically, for $z$ adding a tiny imaginary part. Then $\frac{1}{\pi}\text{Im}[g(z+i\epsilon)]$ gives us our desired spectral density. This classic case is also of course analytically tractable, with</p>
+          <p>This equation can be solved numerically for a given real $z$ plus a tiny imaginary part. Then $\frac{1}{\pi}\text{Im}[g(z+i\epsilon)]$ gives us our desired spectral density. This classic case is also of course analytically tractable, with</p>
           $$g(z) = \frac{z-1-q\pm \sqrt{(\lambda_+-z)(z-\lambda_-) }}{2qz} $$
           <p>with $\lambda_\pm = (1\pm\sqrt(q))^2$. The discontinuity across the branch cut yielding the Marchenko-Pastur distribution</p>
 
-            $$\rho(z) =  \frac{\sqrt{(\lambda_+-z)(z-\lambda_-) }}{2\pi qz}$$
+            $$\rho(z) =  \frac{\sqrt{(\lambda_+-z)(z-\lambda_-) }}{2\pi qz}+\mathbb{1}_{q > 1}(1-1/q)\delta(z)$$
 
           <p>We present the numerical, analytical, and empircal comparison in Fig. 1.  </p>
           <figure>
@@ -105,9 +107,9 @@
           <p>For finite and generic $\alpha$, the $t$-integral in the self-consistent equation is not analytically tractable, but it can be handled numerically.</p>
 
           <h2>Numerical Implementation</h2>
-          <p>For numerical implementation we need to be slightly more specific about what we mean by the distribution $dH(t)$.  The integral will not converge without a finite cutoff $\Lambda$. So the distribution </p>
+          <p>For numerical implementation we need to be slightly more specific about what we mean by the distribution $dH(t)$.  The integral will not converge without a finite cutoff $\Lambda > 0$. In this case the distribution is</p>
             $$ dH(t) = \frac{1}{\alpha}\frac{\Lambda^{1/\alpha}}{1-\Lambda^{1/\alpha}}t^{-1-1/\alpha}$$
-          <p>Additionally, in order to improve numerically stability, it is best to use logarithmic variables $\log(t)$ and to divide both sides of the self-consistent equation by $g(z)$. This way, the numerical solver is not 
+          <p>Additionally, in order to improve numerically stability, it is best to switch variables to the logarithm of $t$ and to divide both sides of the self-consistent equation by $g(z)$. This way, the numerical solver is not 
             trying to identify cancellations between large numbers, but reliably computes an order-one number when looking for a solution.  This form of the self-consistent equation is
           </p>
           $$ 1 = \frac{1}{\alpha}\frac{1}{1-\Lambda^{1/\alpha}} \int\limits_{\log(\Lambda)}^0 \frac{e^{t+t/\alpha} }{g(z)(\Lambda*\Delta+z e^{t}) }dt$$
@@ -115,16 +117,16 @@
           <figure>
             <!-- put your image into the repo’s images folder -->
             <img src="figures/wishart_power_q2.png" alt="structured wishart">
-            <figcaption>Figure 2. Structured wishart.</figcaption>
+            <figcaption>Figure 2. Structured Wishart, dashed theory curve for $\alpha = 1.5$ and $q = 2$.</figcaption>
           </figure>
 
-          <p>Close to equiparameterization, we see two power-laws for two parts of the distribution, depicted for $\alpha = 1.7$ and $q = .99$ in Fig. 3. The larger eigenvalues fall as that population density dictates
-            $\sim z^{-1-/\alpha}$ before transitioning to the $z^{-1/2}$ falloff of the density of smaller eigenvalues. </p>
+          <p>Close to equiparameterization, there are two power-laws for two parts of the distribution, depicted for $\alpha = 1.7$ and $q = .99$ in Fig. 3. The larger eigenvalues fall as that population density dictates
+            $\sim z^{-1-/\alpha}$ before transitioning to the $z^{-1/2}$ falloff of the density of smaller eigenvalues. The latter is also observed in the white Wishart case.</p>
 
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
                 <img src="figures/wishart_q99.png" alt="structured wishart">
-              <figcaption>Figure 3. Equiparameterized, structured wishart.</figcaption>
+              <figcaption>Figure 3. Equiparameterized, structured wishart with $\alpha = 1.7$ and $q = .99$.</figcaption>
               </figure>
           
               <figure style="flex: 1 1 0; text-align: center;">
@@ -133,7 +135,7 @@
               </figure>
             </div>
 
-            <p>We also provide the fractional excess of the empirical distribution relative to the theory curve. The dispersion is as expected.</p>
+            <p>I also provide the fractional excess of the empirical distribution relative to the theory curve. The dispersion is symmetric, as expected. We will see that this is not the case for natural data, even when the fit is quite good.</p>
 
          <h2>Natural Data: Images</h2>
          <p>We can now use our control over the theoretical spectral density for power-law population covariance and compare to natural data. We can start with the most naive comparison, which is to directly compare the sample covariance of the CIFAR-10 training set to 
@@ -153,7 +155,7 @@
             <img src="figures/cifar_spectral_density.png" alt="white wishart">
             <figcaption>Figure 6. Spectral density for CIFAR-10 training set covariance eigenvalues with theory curve fitting the cutoff to agree and using the exponent implied by the large eigenvalue behavior in the rank-ordered plot.</figcaption>
           </figure>
-          <p>The agreement is very poor for the raw CIFAR data, but as has been noted previously, the non-linear activations so central to Neural Networks, are capable of extending the power-law.  And indeed, 
+          <p>The agreement is very poor for the raw CIFAR data, but as has been noted previously, the non-linear activations so central to neural networks, are capable of extending the power-law.  And indeed, 
             it not only serves to extend beyond the trivial rank limitations, but drastically improves the agreement with a power-law spectral density. We see this in Fig. 7. The data has been feature-mapped up to 10k feature dimensions and then ReLU-mapped. 
             We therefore now use an overparameterization ratio of $q = \frac{1}{6}$ and a power-law $\alpha = 1.22$.</p>
             <figure>
@@ -174,7 +176,7 @@
                 <figcaption>Figure 9. .</figcaption>
               </figure>
             </div>
-            <p>This excess is reminescent of the log-periodic oscillations observed around the rank-ordered eigenvalue plot of natural language data about the Zipf's law prediction. From this point of view, the pure CIFAR-10 data is perhaps critically overdamped And
+            <p>This excess is reminescent of the log-periodic oscillations observed around the rank-ordered plot of word frequencies around the Zipf's law prediction. From this point of view, the pure CIFAR-10 data is perhaps critically overdamped And
               fails to make it through a even a half-cycle of oscillation. The ReLU mapping improves the power-law and reveals two clear periods of oscillation in the spectral density with about period of about a decade. Perhaps the phenomenon of log-periodic oscillations in the spectra of natural data
               around a power-law has a universality.
             </p>
@@ -182,7 +184,7 @@
             <h2>Natural Data: Text</h2>
             It's also interesting to look at natural language. Here the design matrix is contingent on both a tokenization scheme and a choice of embedding dimension. For tokenziation I use custom Byte Pair Encoding (BPE)
             from Hugging face trained on the first 5% of "wikitext-2-raw-v1". I use a vocab size of 8k, and use 100k tokens as the input data whose spectrum I study.  Despite the 100k tokens, there are only 7216 unique
-            tokens, which is roughly consistent with the expectation from Heap's law. In particular, though, an embedding dimension above 7216 will furnish a rank-deficient design matrix. We look at an embedding dimension above and below.
+            tokens, which is roughly consistent with the expectation from Heap's law. In particular, though, an embedding dimension above 7216 will furnish a rank-deficient design matrix. We look at embedding dimensions above and below this unique token number.
             After embedding and centering, we apply ReLU and compute the covariance from the ReLU-mapped design matrix. 
 
 
@@ -197,7 +199,7 @@
                 <figcaption>Figure 11. .</figcaption>
               </figure>
             </div>
-              With $n_{\text{embed}} = 8k$ we have an implied $q \sim 1.1$. We produce the above theory curve with $q = 1.14$ and a Zipfian $\alpha = 1$.  We see quite a good fit, and again structure to 
+              With $n_{\text{embed}} = 8k$ we have an implied $q \sim 1.1$. We produce the above theory curve with $q = 1.14$ and $\alpha = 1$.  We see quite a good fit, and again
               log-periodic structure to the excess density at smaller eigenvalues.  We can make a separate comparison with an embedding dimension $n_{\text{embed}} = 4k$.  In this case we get Fig. 12 and Fig. 13.
               
               <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
@@ -216,6 +218,8 @@
               Getting enough control on the computation of the theoretical spectral density for power-law structured input data was sufficient to make some refined observations about natural data. The non-linear feature maps 
               not only extend the power-law behavior, as observed before, but indeed improve the fit to a power-law spectral density. It would be interesting to probe whether the log-periodic oscillatory structure is universal 
               and has any implications for training loss. 
+              <h3>Acknowledgments</h3>
+              <p>I would like to thank Alex Atanasov and Cegniz Pehlevan for valuable conversations related to the work herein.</p>
         </div>
       </article>
     </div>

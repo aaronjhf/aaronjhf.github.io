@@ -229,19 +229,19 @@
               The rank of the covariance in feature space can vary by a few depending on the finite precision, but is around 711.</p>
             <figure>
               <!-- put your image into the repo’s images folder -->
-              <img src="figures/mnist_raw_spec_density.png" alt="white wishart">
-              <figcaption>Figure . The spectrum of the MNIST training set. Despite a 60k images, the covariance is not full rank.</figcaption>
+              <img src="figures/mnist_spec_density.png" alt="white wishart">
+              <figcaption>Figure 15. The spectrum of the MNIST training set. Despite a 60k images, the covariance is not full rank.</figcaption>
             </figure>
             <p>This near-equiparameteriation is mainted after feature mapping to 10k input dimensions and applying ReLU.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
                 <img src="figures/mnist_relu_spec_density.png" alt="structured wishart">
-              <figcaption>Figure .  The spectrum after random feature mapping and ReLU. The near equiparameterization is preserved.</figcaption>
+              <figcaption>Figure 16.  The spectrum after random feature mapping and ReLU. The near equiparameterization is preserved.</figcaption>
               </figure>
           
               <figure style="flex: 1 1 0; text-align: center;">
-                <img src="figures/mnist_relu_fractional_excess.png" alt="excess figure" style="max-width:100%;">
-                <figcaption>Figure . The fractional empircal excess is less well motivated for this poor fit, but in the region of better fit still exhibits some evidence of log periodic oscillation.</figcaption>
+                <img src="figures/mnist_relu_frac_excess.png" alt="excess figure" style="max-width:100%;">
+                <figcaption>Figure 17. The fractional empircal excess is less well motivated for this poor fit, but in the region of better fit still exhibits some evidence of log periodic oscillation.</figcaption>
               </figure>
             </div>
             <p>Despite the inferior fit, I present the fractional empirical excess as well. This certainly not worth looking at in the small eigenvalue regime which violently disagrees as the density scales more flatly than $\lambda^{-1/2}$, but
@@ -257,13 +257,13 @@
 
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
-                <img src="figures/wiki-text-spec-8k.png" alt="structured wishart">
-              <figcaption>Figure . The spectral density uses a vocab of size 8k and then an embedding of dimension 8k. The effective $q$ taking the ratio of the embedding dimension and number of unique tokens is close to the theory curve with $q = 1.14$ and $\alpha = 1$.</figcaption>
+                <img src="figures/wiki_emb_8k_spec_density.png" alt="structured wishart">
+              <figcaption>Figure 18. The spectral density uses a vocab of size 8k and then an embedding of dimension 8k. The effective $q$ taking the ratio of the embedding dimension and number of unique tokens is close to the theory curve with $q = 1.14$ and $\alpha = 1$.</figcaption>
               </figure>
           
               <figure style="flex: 1 1 0; text-align: center;">
-                <img src="figures/wiki-text-excess-8k.png" alt="excess figure" style="max-width:100%;">
-                <figcaption>Figure . The empirical fractional excess exhibits some oscillatory behavior.</figcaption>
+                <img src="figures/wiki_8k_frac_excess.png" alt="excess figure" style="max-width:100%;">
+                <figcaption>Figure 19. The empirical fractional excess exhibits some oscillatory behavior.</figcaption>
               </figure>
             </div>
               With $n_{\text{embed}} = 8k$ we have an implied $q \sim 1.1$. We produce the above theory curve with $q = 1.14$ and $\alpha = 1$.  We see quite a good fit, and again
@@ -271,13 +271,13 @@
               
               <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
                 <figure style="flex: 1 1 0; text-align: center;">
-                  <img src="figures/wiki-text-spec-4k.png" alt="structured wishart">
-                <figcaption>Figure . Again, the appropriate $q$ is roughly the embedding dimension divided by the number of embedding dimensions. The theory curve has $q = .58$.</figcaption>
+                  <img src="figures/wiki_emb_4k_spec_density.png" alt="structured wishart">
+                <figcaption>Figure 20. Again, the appropriate $q$ is roughly the embedding dimension divided by the number of embedding dimensions. The theory curve has $q = .58$.</figcaption>
                 </figure>
             
                 <figure style="flex: 1 1 0; text-align: center;">
-                  <img src="figures/wiki-text-excess-4k.png" alt="excess figure" style="max-width:100%;">
-                  <figcaption>Figure . Again, some oscillatory behavior is present in the fractional empirical excess.</figcaption>
+                  <img src="figures/wiki_4k_frac_excess.png" alt="excess figure" style="max-width:100%;">
+                  <figcaption>Figure 21. Again, some oscillatory behavior is present in the fractional empirical excess.</figcaption>
                 </figure>
               </div>
               In this case there is an implied overparameterization ratio $q \sim .55$. We use a fit with $q = .58$ and $\alpha = .98$. Again we see similar systematic deviations at small eigenvalues.

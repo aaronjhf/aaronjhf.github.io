@@ -99,11 +99,19 @@
 
             $$\rho(z) =  \frac{\sqrt{(\lambda_+-z)(z-\lambda_-) }}{2\pi qz}+\mathbb{1}_{q > 1}(1-1/q)\delta(z)$$
 
-          <p>We present the numerical, analytical, and empircal comparison in Fig. 1.  </p>
+          <p>I present the numerical, analytical, and empircal comparison in Fig. 1.  </p>
           <figure>
             <!-- put your image into the repo’s images folder -->
-            <img src="figures/wishart_white_q1_3.png" alt="white wishart">
+            <img src="figures/mp_q_2.png" alt="mp spec density">
             <figcaption>Figure 1. White wishart, Marchenko-Pastur law. The dashed curve is the numerical solution and the solid curve is the analytic expression.</figcaption>
+          </figure>
+
+          <p> For comparison I also present the fractional excess of the empirical density relative to the theory in Figure 2 below. The dispersion is symmetric as one would expect</p>
+
+          <figure>
+            <!-- put your image into the repo’s images folder -->
+            <img src="figures/mp_frac_excess.png" alt="mp frac excess">
+            <figcaption>Figure 2. The fractional excess of the empirical spectral density relative to the theoretical. The dispersion is symmetric.</figcaption>
           </figure>
   
           <p>For finite and generic $\alpha$, the $t$-integral in the self-consistent equation is not analytically tractable, but it can be handled numerically.</p>
@@ -115,48 +123,67 @@
             trying to identify cancellations between large numbers, but reliably computes an order-one number when looking for a solution.  This form of the self-consistent equation is
           </p>
           $$ 1 = \frac{1}{\alpha}\frac{1}{1-\Lambda^{1/\alpha}} \int\limits_{\log(\Lambda)}^0 \frac{e^{t+t/\alpha} }{g(z)(\Lambda*\Delta+z e^{t}) }dt$$
-          <p>We compare the numerical solution to data for $\alpha = 1.5$ and $q = 2$ in Fig. 2, with compelling agreement. </p>
+          <p>First it is instructive to look at the rank-ordered plot of the eigenvalues of the sample covariance. This is what is often looked at the in the literature for natural datasets and it is instructive to keep in mind what it looks like for exactly power law data. This is presented in Fig. 3.
+            Then I compare the numerical solution for the spectral density to empirics for $\alpha = 1.5$ and $q = 2$ in Fig. 4, finding solid agreement. </p>
           <figure>
             <!-- put your image into the repo’s images folder -->
-            <img src="figures/wishart_power_q2.png" alt="structured wishart">
-            <figcaption>Figure 2. Structured Wishart, dashed theory curve for $\alpha = 1.5$ and $q = 2$.</figcaption>
+            <img src="figures/pl_rank_ordered_q_2.png" alt="structured wishart">
+            <figcaption>Figure 3. Rank-ordered eigenvalues for data with $\alpha = 1.5$ and $q = 2$.</figcaption>
           </figure>
 
-          <p>Close to equiparameterization, there are two power-laws for two parts of the distribution, depicted for $\alpha = 1.7$ and $q = .99$ in Fig. 3. The larger eigenvalues fall as that population density dictates
-            $\sim z^{-1-/\alpha}$ before transitioning to the $z^{-1/2}$ falloff of the density of smaller eigenvalues. The latter is also observed in the white Wishart case.</p>
+          <p>There is a bit of a tail at the end, and by eye it is difficult to discern what sort of tail at the smaller eigenvalues is to be expected for samples from pure power-law data and what constitutes a systematic deviation. 
+            It will be fruitful to examine the spectral density and the fractional empirical excesses in order to analyze this.
+          </p>
+          <figure>
+            <!-- put your image into the repo’s images folder -->
+            <img src="figures/pl_spec_density_q_2.png" alt="structured wishart">
+            <figcaption>Figure 4. Spectral density for data with $\alpha = 1.5$ and $q = 2$.</figcaption>
+          </figure>
+          <p>The fractional empirical excess is presented in Fig. 5. Again, symmetric dispersion is found, indicative of the goodness of fit.
+          </p>
+
+          <figure>
+            <!-- put your image into the repo’s images folder -->
+            <img src="figures/pl_frac_excess_q_2.png" alt="structured wishart">
+            <figcaption>Figure 5. Fractional empirical excess for data with $\alpha = 1.5$ and $q = 2$.</figcaption>
+          </figure>
+
+          <p>It is also interesting to consider equiparameterized samples i.e. samples with $q \sim 1$. Close to equiparameterization, there are two power-laws for two parts of the distribution, depicted for $\alpha = 1.7$ and $q = .99$ in Fig. 3. The larger eigenvalues fall as that population density dictates
+            $\sim z^{-1-/\alpha}$ before transitioning to the $z^{-1/2}$ falloff of the density of smaller eigenvalues. The latter is also observed in the white Wishart case.
+          The agreement is solid again, and again the dispersion is symmetric. We emphasize this point as we will see systematic deviations in the case of natural data which may be indicative of interesting phenomena. </p>
 
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
-                <img src="figures/wishart_q99.png" alt="structured wishart">
-              <figcaption>Figure 3. Equiparameterized, structured wishart with $\alpha = 1.7$ and $q = .99$. The line at smaller eigenvalues has slope -1/2 and the line at larger eigenvalues has slope $-1-1/\alpha$ .</figcaption>
+                <img src="figures/pl_spec_density_q_99.png" alt="structured wishart">
+              <figcaption>Figure 6. Equiparameterized, structured wishart with $\alpha = 1.7$ and $q = .99$. The line at smaller eigenvalues has slope -1/2 and the line at larger eigenvalues has slope $-1-1/\alpha$ .</figcaption>
               </figure>
           
               <figure style="flex: 1 1 0; text-align: center;">
-                <img src="figures/wishart_empirical_excess.png" alt="excess figure" style="max-width:100%;">
-                <figcaption>Figure 4. Fractional excess of empirical distribution relative to theory. The dispersion is symmetric.</figcaption>
+                <img src="figures/pl_frac_excess_q_99.png" alt="excess figure" style="max-width:100%;">
+                <figcaption>Figure 7. Fractional excess of empirical distribution relative to theory. The dispersion is symmetric.</figcaption>
               </figure>
             </div>
 
-            <p>I also provide the fractional excess of the empirical distribution relative to the theory curve. The dispersion is symmetric, as expected. We will see that this is not the case for natural data, even when the fit is quite good.</p>
+         
 
          <h2>Natural Data: Images</h2>
-         <h3>CIFAR-10</h3>
+         <h3>CIFAR10</h3>
          <p>We can now use our control over the theoretical spectral density for power-law population covariance and compare to natural data. We can start with the most naive comparison, which is to directly compare the sample covariance of the CIFAR-10 training set to 
-          the power-law spectral density implied by its parameters. The first obvious issue with this is that the rank-ordered plot makes pretty manifest that there isn't an unambiguous power, and the falloff looks more like a geometric distribution, as I depict in Fig. 5.
+          the power-law spectral density implied by its parameters. The first obvious issue with this is that the rank-ordered plot makes pretty manifest that there isn't an unambiguous power, and the falloff looks more like a geometric distribution, as I depict in Fig. 8.
          </p>   
 
          <figure>
           <!-- put your image into the repo’s images folder -->
-          <img src="figures/cifar_eigenvalues.png" alt="white wishart">
-          <figcaption>Figure 5. Rank-ordered, CIFAR-10 training set covariance eigenvalues.</figcaption>
+          <img src="figures/cifar_rank_ordered.png" alt="white wishart">
+          <figcaption>Figure 8. Rank-ordered, CIFAR-10 training set covariance eigenvalues.</figcaption>
         </figure>
 
         <p>There is a power-law stretch initially, but that tail is more than an artifact of finite over-parameterization, clearly. This fact is made completely manifest by the spectral density constructed from that power-law
-          in Fig. 6. </p>
+          in Fig. 9. </p>
           <figure>
             <!-- put your image into the repo’s images folder -->
-            <img src="figures/cifar_spectral_density.png" alt="white wishart">
-            <figcaption>Figure 6. Spectral density for CIFAR-10 training set covariance eigenvalues with theory curve fitting the cutoff to agree empirically while using the exponent implied by the large eigenvalue behavior in the rank-ordered plot
+            <img src="figures/cifar_spec_density.png" alt="white wishart">
+            <figcaption>Figure 9. Spectral density for CIFAR10 training set covariance eigenvalues with theory curve fitting the cutoff to agree empirically while using the exponent implied by the large eigenvalue behavior in the rank-ordered plot
               and the implied $q$ value from the input dimension and training set size.</figcaption>
           </figure>
           <p>The agreement is very poor for the raw CIFAR data, but as has been noted previously, the non-linear activations so central to neural networks, are capable of extending the power-law.  And indeed, 
@@ -164,20 +191,20 @@
             We therefore now use an overparameterization ratio of $q = \frac{1}{6}$ and a power-law $\alpha = 1.22$. These naive parameters agree extremely well.</p>
             <figure>
               <!-- put your image into the repo’s images folder -->
-              <img src="figures/relu_cifar.png" alt="white wishart">
-              <figcaption>Figure 7. ReLU mapped CIFAR-10 data, mapped up to 10k feature dimensions. Theoretical spectral density for $\alpha = 1.22$ and $q = 1/6$.</figcaption>
+              <img src="figures/c.png" alt="white wishart">
+              <figcaption>Figure . ReLU mapped CIFAR-10 data, mapped up to 10k feature dimensions. Theoretical spectral density for $\alpha = 1.22$ and $q = 1/6$.</figcaption>
             </figure>
             <p> Systematic deviations do remain at small eigenvalues, though.</p>
 
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
                 <img src="figures/relu_cifar_zoom.png" alt="structured wishart">
-              <figcaption>Figure 8. Zoomed in version of Fig. 7, where a systematic discrepancy exists.</figcaption>
+              <figcaption>Figure . Zoomed in version of Fig. 7, where a systematic discrepancy exists.</figcaption>
               </figure>
           
               <figure style="flex: 1 1 0; text-align: center;">
                 <img src="figures/empirical_excess.png" alt="excess figure" style="max-width:100%;">
-                <figcaption>Figure 9. The fractional empirical excess of the spectral density exhibits log-periodic oscillations at small eigenvalues..</figcaption>
+                <figcaption>Figure . The fractional empirical excess of the spectral density exhibits log-periodic oscillations at small eigenvalues..</figcaption>
               </figure>
             </div>
             <p>This excess is reminescent of the log-periodic oscillations observed around the rank-ordered plot of word frequencies around the Zipf's law prediction. The ReLU mapping improves the power-law and reveals two clear periods of oscillation in the spectral density with about period of about a decade. 
@@ -190,18 +217,18 @@
             <figure>
               <!-- put your image into the repo’s images folder -->
               <img src="figures/mnist_raw_spec_density.png" alt="white wishart">
-              <figcaption>Figure 10. The spectrum of the MNIST training set. Despite a 60k images, the covariance is not full rank.</figcaption>
+              <figcaption>Figure . The spectrum of the MNIST training set. Despite a 60k images, the covariance is not full rank.</figcaption>
             </figure>
             <p>This near-equiparameteriation is mainted after feature mapping to 10k input dimensions and applying ReLU.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
                 <img src="figures/mnist_relu_spec_density.png" alt="structured wishart">
-              <figcaption>Figure 11.  The spectrum after random feature mapping and ReLU. The near equiparameterization is preserved.</figcaption>
+              <figcaption>Figure .  The spectrum after random feature mapping and ReLU. The near equiparameterization is preserved.</figcaption>
               </figure>
           
               <figure style="flex: 1 1 0; text-align: center;">
                 <img src="figures/mnist_relu_fractional_excess.png" alt="excess figure" style="max-width:100%;">
-                <figcaption>Figure 12. The fractional empircal excess is less well motivated for this poor fit, but in the region of better fit still exhibits some evidence of log periodic oscillation.</figcaption>
+                <figcaption>Figure . The fractional empircal excess is less well motivated for this poor fit, but in the region of better fit still exhibits some evidence of log periodic oscillation.</figcaption>
               </figure>
             </div>
             <p>Despite the inferior fit, I present the fractional empirical excess as well. This certainly not worth looking at in the small eigenvalue regime which violently disagrees as the density scales more flatly than $\lambda^{-1/2}$, but
@@ -218,12 +245,12 @@
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
                 <img src="figures/wiki-text-spec-8k.png" alt="structured wishart">
-              <figcaption>Figure 13. The spectral density uses a vocab of size 8k and then an embedding of dimension 8k. The effective $q$ taking the ratio of the embedding dimension and number of unique tokens is close to the theory curve with $q = 1.14$ and $\alpha = 1$.</figcaption>
+              <figcaption>Figure . The spectral density uses a vocab of size 8k and then an embedding of dimension 8k. The effective $q$ taking the ratio of the embedding dimension and number of unique tokens is close to the theory curve with $q = 1.14$ and $\alpha = 1$.</figcaption>
               </figure>
           
               <figure style="flex: 1 1 0; text-align: center;">
                 <img src="figures/wiki-text-excess-8k.png" alt="excess figure" style="max-width:100%;">
-                <figcaption>Figure 14. The empirical fractional excess exhibits some oscillatory behavior.</figcaption>
+                <figcaption>Figure . The empirical fractional excess exhibits some oscillatory behavior.</figcaption>
               </figure>
             </div>
               With $n_{\text{embed}} = 8k$ we have an implied $q \sim 1.1$. We produce the above theory curve with $q = 1.14$ and $\alpha = 1$.  We see quite a good fit, and again
@@ -232,12 +259,12 @@
               <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
                 <figure style="flex: 1 1 0; text-align: center;">
                   <img src="figures/wiki-text-spec-4k.png" alt="structured wishart">
-                <figcaption>Figure 15. Again, the appropriate $q$ is roughly the embedding dimension divided by the number of embedding dimensions. The theory curve has $q = .58$.</figcaption>
+                <figcaption>Figure . Again, the appropriate $q$ is roughly the embedding dimension divided by the number of embedding dimensions. The theory curve has $q = .58$.</figcaption>
                 </figure>
             
                 <figure style="flex: 1 1 0; text-align: center;">
                   <img src="figures/wiki-text-excess-4k.png" alt="excess figure" style="max-width:100%;">
-                  <figcaption>Figure 16. Again, some oscillatory behavior is present in the fractional empirical excess.</figcaption>
+                  <figcaption>Figure . Again, some oscillatory behavior is present in the fractional empirical excess.</figcaption>
                 </figure>
               </div>
               In this case there is an implied overparameterization ratio $q \sim .55$. We use a fit with $q = .58$ and $\alpha = .98$. Again we see similar systematic deviations at small eigenvalues.

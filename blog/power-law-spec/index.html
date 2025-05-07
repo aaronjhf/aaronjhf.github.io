@@ -186,25 +186,38 @@
             <figcaption>Figure 9. Spectral density for CIFAR10 training set covariance eigenvalues with theory curve fitting the cutoff to agree empirically while using the exponent implied by the large eigenvalue behavior in the rank-ordered plot
               and the implied $q$ value from the input dimension and training set size.</figcaption>
           </figure>
-          <p>The agreement is very poor for the raw CIFAR data, but as has been noted previously, the non-linear activations so central to neural networks, are capable of extending the power-law.  And indeed, 
-            it not only serves to extend beyond the trivial rank limitations, but drastically improves the agreement with a power-law spectral density. We see this in Fig. 7. The data has been feature-mapped up to 10k feature dimensions and then ReLU-mapped. 
-            We therefore now use an overparameterization ratio of $q = \frac{1}{6}$ and a power-law $\alpha = 1.22$. These naive parameters agree extremely well.</p>
+          <p>The agreement is very poor for the raw CIFAR data, but as has been noted previously, the non-linear activations so central to neural networks, are capable of extending the power-law. This is demonstrated clearly by the plot of rank-ordered 
+            eigenvalues, presented in Fig. 10.
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
+            <!-- put your image into the repo’s images folder -->
+            <img src="figures/cifar_spec_density.png" alt="white wishart">
+            <figcaption>Figure 10. Rank-ordered plot of eigenvalues for sample covariance in feature-mapped CIFAR.</figcaption>
+          </figure>
+        
+            <figure style="flex: 1 1 0; text-align: center;">
+              <img src="figures/cifar_relu_power_frac.png" alt="excess figure" style="max-width:100%;">
+              <figcaption>Figure 11. Rank-ordered eigenvalues divided by the power-law. Some log-oscillatory behavior is present.</figcaption>
+            </figure>
+          </div>
+            <p>The ReLU mapping clearly not only serves to extend beyond the trivial rank limitations, but drastically improves the agreement with a power-law spectral density. We see this in Fig. 12. The data has been feature-mapped up to 10k feature dimensions and then ReLU-mapped. 
+            We therefore now use an overparameterization ratio of $q = \frac{1}{5}$ and a power-law $\alpha = 1.22$. These naive parameters agree extremely well.</p>
             <figure>
               <!-- put your image into the repo’s images folder -->
-              <img src="figures/c.png" alt="white wishart">
-              <figcaption>Figure . ReLU mapped CIFAR-10 data, mapped up to 10k feature dimensions. Theoretical spectral density for $\alpha = 1.22$ and $q = 1/6$.</figcaption>
+              <img src="figures/cifar_relu_spec_density.png" alt="white wishart">
+              <figcaption>Figure 12. ReLU mapped CIFAR-10 data, mapped up to 10k feature dimensions. Theoretical spectral density for $\alpha = 1.22$ and $q = 1/5$.</figcaption>
             </figure>
             <p> Systematic deviations do remain at small eigenvalues, though.</p>
 
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
-                <img src="figures/relu_cifar_zoom.png" alt="structured wishart">
-              <figcaption>Figure . Zoomed in version of Fig. 7, where a systematic discrepancy exists.</figcaption>
+                <img src="figures/cifar_relu_spec_density_zoom.png" alt="structured wishart">
+              <figcaption>Figure 13. Zoomed in version of Fig. 12, where a systematic discrepancy exists.</figcaption>
               </figure>
           
               <figure style="flex: 1 1 0; text-align: center;">
-                <img src="figures/empirical_excess.png" alt="excess figure" style="max-width:100%;">
-                <figcaption>Figure . The fractional empirical excess of the spectral density exhibits log-periodic oscillations at small eigenvalues..</figcaption>
+                <img src="figures/cifar_relu_frac_excess.png" alt="excess figure" style="max-width:100%;">
+                <figcaption>Figure 14. The fractional empirical excess of the spectral density exhibits log-periodic oscillations at small eigenvalues..</figcaption>
               </figure>
             </div>
             <p>This excess is reminescent of the log-periodic oscillations observed around the rank-ordered plot of word frequencies around the Zipf's law prediction. The ReLU mapping improves the power-law and reveals two clear periods of oscillation in the spectral density with about period of about a decade. 

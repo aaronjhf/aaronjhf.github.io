@@ -138,7 +138,7 @@
             <figcaption>Figure 1. White wishart, Marchenko-Pastur law. The dashed curve is the numerical solution and the solid curve is the analytic expression.</figcaption>
           </figure>
 
-          <p> For comparison I also present the fractional excess of the empirical density relative to the theory in Fig. 2 below. The dispersion is symmetric as one would expect</p>
+          <p> For comparison I also present the fractional excess of the empirical density relative to the theory in Fig. 2 below. The dispersion is symmetric as one would expect.</p>
 
           <figure>
             <!-- put your image into the repo’s images folder -->
@@ -146,17 +146,20 @@
             <figcaption>Figure 2. The fractional excess of the empirical spectral density relative to the theoretical. The dispersion is symmetric.</figcaption>
           </figure>
   
-          <p>For finite and generic $\alpha$, the $t$-integral in the self-consistent equation is not analytically tractable, but it can be handled numerically.</p>
+          <p>For finite and generic $\alpha$, the $t$-integral in the self-consistent equation is not analytically tractable, but it can be handled numerically. I discuss the numerical implementation below.</p>
 
           <h2>Numerical Implementation</h2>
-          <p>For numerical implementation we need to be slightly more specific about what we mean by the distribution $dH(t)$.  The integral will not converge without a finite cutoff $\Lambda > 0$. In this case the distribution is</p>
+          <p>For numerical implementation I need to be slightly more specific about what we mean by the distribution $dH(t)$.  The integral will not converge without a finite cutoff $\Lambda > 0$. In this case the normalized distribution is</p>
             $$ dH(t) = \frac{1}{\alpha}\frac{\Lambda^{1/\alpha}}{1-\Lambda^{1/\alpha}}t^{-1-1/\alpha}$$
-          <p>Additionally, in order to improve numerically stability, it is best to switch variables to the logarithm of $t$ and to divide both sides of the self-consistent equation by $g(z)$. This way, the numerical solver is not 
+          <p>Additionally, in order to improve numerically stability, it is best to switch variables to $u = \log t$ and to divide both sides of the self-consistent equation by $g(z)$. This way, the numerical solver is not 
             trying to identify cancellations between large numbers, but reliably computes an order-one number when looking for a solution.  This form of the self-consistent equation is
           </p>
-          $$ 1 = \frac{1}{\alpha}\frac{1}{1-\Lambda^{1/\alpha}} \int\limits_{\log(\Lambda)}^0 \frac{e^{t+t/\alpha} }{g(z)(\Lambda*\Delta+z e^{t}) }dt$$
+          $$ 1 = \frac{1}{\alpha}\frac{1}{1-\Lambda^{1/\alpha}} \int\limits_{\log(\Lambda)}^0 \frac{e^{u+u/\alpha} }{g(z)(\Lambda*\Delta+z e^{u}) }du$$
+          <p>In practice, I use scipy's numerical integration and root finder in order to find the solution to this equation for complex $g(z)$, giving $z$ a small imaginary part.  The imaginary part of this solution yields the spectral density for that value of z. These are all the tools needed 
+            in order to compare to data.
+          </p>
           <p>First it is instructive to look at the rank-ordered plot of the eigenvalues of the sample covariance. This is what is often looked at the in the literature for natural datasets and it is instructive to keep in mind what it looks like for exactly power law data. This is presented in Fig. 3.
-            Then I compare the numerical solution for the spectral density to empirics for $\alpha = 1.5$ and $q = 2$ in Fig. 4, finding solid agreement. </p>
+             </p>
           <figure>
             <!-- put your image into the repo’s images folder -->
             <img src="figures/pl_rank_ordered_q_2.png" alt="structured wishart">
@@ -164,14 +167,14 @@
           </figure>
 
           <p>There is a bit of a tail at the end, and by eye it is difficult to discern what sort of tail at the smaller eigenvalues is to be expected for samples from pure power-law data and what constitutes a systematic deviation. 
-            It will be fruitful to examine the spectral density and the fractional empirical excesses in order to analyze this.
+            It will be fruitful to examine the spectral density and the fractional empirical excesses in order to analyze this.  I compare the numerical solution for the spectral density to empirics for $\alpha = 1.5$ and $q = 2$ in Fig. 4, finding solid agreement.
           </p>
           <figure>
             <!-- put your image into the repo’s images folder -->
             <img src="figures/pl_spec_density_q_2.png" alt="structured wishart">
             <figcaption>Figure 4. Spectral density for data with $\alpha = 1.5$ and $q = 2$.</figcaption>
           </figure>
-          <p>The fractional empirical excess is presented in Fig. 5. Again, symmetric dispersion is found, indicative of the goodness of fit.
+          <p>The fractional empirical excess is presented in Fig. 5. Again, symmetric dispersion is found, indicative of the goodness of fit. There are very few large eigenvalues, so the dispersion naturally becomes quite large in that regime as the finite dimensionality is relevant.
           </p>
 
           <figure>
@@ -180,9 +183,9 @@
             <figcaption>Figure 5. Fractional empirical excess for data with $\alpha = 1.5$ and $q = 2$.</figcaption>
           </figure>
 
-          <p>It is also interesting to consider equiparameterized samples i.e. samples with $q \sim 1$. Close to equiparameterization, there are two power-laws for two parts of the distribution, depicted for $\alpha = 1.7$ and $q = .99$ in Fig. 3. The larger eigenvalues fall as that population density dictates
+          <p>It is also interesting to consider equiparameterized samples i.e. samples with $q \sim 1$. Close to equiparameterization, there are two power-laws for two parts of the distribution, depicted for $\alpha = 1.7$ and $q = .99$ in Fig. 6. The larger eigenvalues fall as that population density dictates
             $\sim z^{-1-/\alpha}$ before transitioning to the $z^{-1/2}$ falloff of the density of smaller eigenvalues. The latter is also observed in the white Wishart case.
-          The agreement is solid again, and again the dispersion is symmetric. We emphasize this point as we will see systematic deviations in the case of natural data which may be indicative of interesting phenomena. </p>
+          The agreement is solid again, and again the dispersion is symmetric. I emphasize this point as there are systematic deviations in the case of natural data which may be indicative of interesting phenomena. </p>
 
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
@@ -200,7 +203,7 @@
 
          <h2>Natural Data: Images</h2>
          <h3>CIFAR10</h3>
-         <p>We can now use our control over the theoretical spectral density for power-law population covariance and compare to natural data. We can start with the most naive comparison, which is to directly compare the sample covariance of the CIFAR-10 training set to 
+         <p>It is time to compare the theoretical spectral density for power-law population covariance to natural data. We can start with the most naive comparison, which is to directly compare the sample covariance of the CIFAR-10 training set to 
           the power-law spectral density implied by its parameters. The first obvious issue with this is that the rank-ordered plot makes pretty manifest that there isn't an unambiguous power, and the falloff looks more like a geometric distribution, as I depict in Fig. 8.
          </p>   
 
@@ -210,8 +213,7 @@
           <figcaption>Figure 8. Rank-ordered, CIFAR-10 training set covariance eigenvalues.</figcaption>
         </figure>
 
-        <p>There is a power-law stretch initially, but that tail is more than an artifact of finite over-parameterization, clearly. This fact is made completely manifest by the spectral density constructed from that power-law
-          in Fig. 9. </p>
+        <p>There is a power-law stretch initially, but that tail is more than an artifact of finite over-parameterization, as demonstrated by the spectral density in Fig. 9. </p>
           <figure>
             <!-- put your image into the repo’s images folder -->
             <img src="figures/cifar_spec_density.png" alt="white wishart">
@@ -223,7 +225,7 @@
           </p>
           <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
             <!-- put your image into the repo’s images folder -->
-            <img src="figures/cifar_spec_density.png" alt="white wishart">
+            <img src="figures/cifar_relu_rank_ordered.png" alt="white wishart">
             <figcaption>Figure 10. Rank-ordered plot of eigenvalues for sample covariance in feature-mapped CIFAR.</figcaption>
           </figure>
         

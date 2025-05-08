@@ -39,10 +39,17 @@
         </header>
   
         <div class="article-style">
-          <h2>Background</h2>
+          <h2>Motivation</h2>
 
           <p> It has been observed that the rank-ordered eigenvalues of the covariance matrices of natural datasets exhibit a power-law falloff. This is upstream of the scaling laws that have been observed for the loss curves of models versus model size and training set size.
-            In this post I numerically calculate the spectral densities for power-law data and use the implementation to study natural data more closely.
+            The scaling laws are important for obvious reasons, perhaps the most important being that the absence of any indication of their abatement provides the promise of steady improvement with scale. There is of course also the question of 
+            whether the scalings can be improved upon, or at least the prefactors in front of them.  As such, scaling constitutes a broad subfield of ML research. Many interesting theoretical papers exploring the origins and limits of scaling utilize the idealized assumption of power law data. 
+            That is, the assumption that the data, either before or after some feature mapping, is sampled from a Gaussian with structured covariance whose eigenvalues falloff as a power-law. This assumption is well-motivated by looking at the rank-ordered plot of eigenvalues of sample 
+            covariance matrices for natural data after feature mapping, but a full comparison requires comparing the spectral density, which I have not seen in the literature. For this reason, I set out to compute the theoretical spectral density for power-law data and compare it to natural data.</p>
+          
+          <h2>Background</h2>
+
+            In this post I leverage the Silverstein equation to numerically calculate the spectral densities for power-law data in the infinite dimension limit and use the implementation to study natural data more closely.
             The case of Gaussian input data, yielding the famous Marchenko-Pastur law for its eigenvalue distribution, already provides the qualitative picture of double-descent and its mitigation by regularization, but does not exhibit power-law behavior and is not sensible 
             to compare directly to natural data or feature-mapped natural data.  For this reason, I develop a numerical implementation of the Silverstein equation, which I use to compute the theoretical sample spectral densities in the large 
             dimension limit, at finite overparameterization. Then I compare to natural image and text datasets where we see vastly improved fits to non-linearly mapped data, as well as interesting structure to the deviations from theory. In particular, I observe log-periodic oscillatory

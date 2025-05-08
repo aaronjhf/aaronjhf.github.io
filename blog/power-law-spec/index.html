@@ -58,20 +58,29 @@
           <!-- Side-by-side figs of e.g. MNIST power-law and with ReLU extending -->
           <h2>Background</h2>
 
-          <p>First I will review what we are calculating and its relation to loss curves.  A useful starting point is the double-descent analysis of Advani-Saxe.  
+          <p>First I will review what we are calculating and its motivation from wanting to understand the generalization error or loss.  A useful starting point is the double-descent analysis of Advani-Saxe.  
             They consider a student-teacher model in the context of linear regression, with a ground truth given by
             $$y= X w_* +\epsilon $$
             where $w_* in \mathbb{R}^D$ with entries sample from a Gaussian with unit variance for simplicity, the design matrix of inputs $X \in \mathbb{R}^{P \times D}$ again with entries sampled for a zero-mean Gaussian with unit variance,
              and noise $\epsilon$ sampled from a zero-mean Gaussian with variance $\sigma_\epsilon^2$. Using the model 
              $$ \hat y = X w $$
             we would like to know the generalization error.  The updates for $w$ come from the gradient of the mean-squared-error as usual
-            $$d w = y X^T-XX^T$$
+            $$d w = y X^T-wXX^T$$
             Some linear algebra reveals that the generalization error with the updates for $w$ viewed as a continuous function of time $t$ take the following form 
-            $$E_g(w(t)) =  \sum\limits_i \left(e^{-2\lambda_i t/\tau}+\frac{\sigma_\epsilon^2}{\lambda_i}(1-e^{-\lambda_i t /\tau})^2 \right)$$
+            $$E_g(w(t)) = \frac{1}{D} \sum\limits_i \left(e^{-2\lambda_i t/\tau}+\frac{\sigma_\epsilon^2}{\lambda_i}(1-e^{-\lambda_i t /\tau})^2 \right)$$
             where the $\lambda_i$ are the eigenvalues of the sample covariance $XX^T$. This equation reveals the phenomenon of double-descent, with the the accumulation of many small eigenvalues near equiparameterization (i.e. when $q \sim 1$ with $q = \frac{D}{P}$) driving up the noise term. 
-            In the infinite dimensional limit, i.e. $D, P \to \infty$ with $q$ fixed, this sum is an integral over the spectral density, the continuous analogue of the eigenvalue distribution.
+            In the infinite dimensional limit, i.e. $D, P \to \infty$ with $q$ fixed, this sum is an integral over the spectral density, the continuous analogue of the eigenvalue distribution.  So it is eigenvalue distribution of the sample covariance
+            $$ \Sigma_S = \frac{X^T X}{P} $$
+            which drives the loss in this student-teacher model.
           </p>
-  
+
+          <p>Double descent in linear regression is perhaps the simplest setting, in which the effect of the spectrum of input data on the loss can be analyzed.  But as Kaplan showed, even in the case of complex, deep networks for LLMs, controlled scaling in the loss remains robust.
+            This has motivated the study of scaling in more non-trivial toy models.  There has been a plethora of work in this domain. One such paper is the work of Maloney, Roberts, and Sully which utilized tools from random matrix theory to compute the generalization error 
+            in random feature models, which have additional layers of linear mapping. Along the way, they note that non-linear mapping of features in natural datasets extends the number of dimensions over which there is a power-law fall off in the eigenvalues. This phenomenon of 
+            a power-law falloff in the eigenvalues of covariances of natural data sets is one I will scrutinize more closely. Now it is prudent to introduce some of the technical tools needed to do so.
+          </p>
+          
+          <h2>Resolvents, $S$-tranform, and Spectral Density</h2>
           <p>It is useful to recall the matrix resolvent, the $S$-transform, and their relationship to the spectral density that I want to compute.  The matrix resolvent of an $N \times N$ matrix $\mathbf{A}$ is:</p>
 
           $$ \mathbf{G}_{\mathbf{A}}  = (z \mathbf{I}-\mathbf{A})^{-1}$$

@@ -239,7 +239,7 @@
             </figure>
           </div>
             <p>The ReLU mapping clearly not only serves to extend beyond the trivial rank limitations, but drastically improves the agreement with a power-law spectral density. We see this in Fig. 12. The data has been feature-mapped up to 10k feature dimensions and then ReLU-mapped. 
-            We therefore now use an overparameterization ratio of $q = \frac{1}{5}$ and a power-law $\alpha = 1.22$. These naive parameters agree extremely well.</p>
+            We therefore now use an overparameterization ratio of $q = \frac{1}{5}$ and a power-law $\alpha = 1.23$. These naive parameters agree extremely well.</p>
             <figure>
               <!-- put your image into the repo’s images folder -->
               <img src="figures/cifar_relu_spec_density.png" alt="white wishart">
@@ -258,7 +258,7 @@
                 <figcaption>Figure 14. The fractional empirical excess of the spectral density exhibits log-periodic oscillations at small eigenvalues..</figcaption>
               </figure>
             </div>
-            <p>This excess is reminescent of the log-periodic oscillations observed around the rank-ordered plot of word frequencies around the Zipf's law prediction. The ReLU mapping improves the power-law and reveals two clear periods of oscillation in the spectral density with about period of about a decade. 
+            <p>This excess is reminescent of the log-periodic oscillations observed around the rank-ordered plot of word frequencies around the Zipf's law prediction. The ReLU mapping improves the power-law and reveals two clear periods of oscillation in the spectral density with a period of about a decade. 
               Perhaps the phenomenon of log-periodic oscillations in the spectra of natural data around a power-law has a universality.
             </p>
             <h3>MNIST</h3>
@@ -270,7 +270,7 @@
               <img src="figures/mnist_spec_density.png" alt="mnist">
               <figcaption>Figure 15. The spectrum of the MNIST training set. Despite a 60k images, the covariance is not full rank.</figcaption>
             </figure>
-            <p>This near-equiparameteriation is mainted after feature mapping to 10k input dimensions and applying ReLU.</p>
+            <p>This near-equiparameteriation is maintained after feature mapping to 10k input dimensions and applying ReLU.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
               <figure style="flex: 1 1 0; text-align: center;">
                 <img src="figures/mnist_relu_spec_density.png" alt="structured wishart">
@@ -289,8 +289,8 @@
             <h2>Natural Data: Text</h2>
             It's also interesting to look at natural language. Here the design matrix is contingent on both a tokenization scheme and a choice of embedding dimension. For tokenziation I use custom Byte Pair Encoding (BPE)
             from Hugging Face trained on the first 5% of "wikitext-2-raw-v1". I use a vocab size of 8k, and use 100k tokens as the input data whose spectrum I study.  Despite the 100k tokens, there are only 7216 unique
-            tokens. In particular, an embedding dimension above 7216 will furnish a rank-deficient design matrix. We look at embedding dimensions above and below this unique token number.
-            After embedding and centering, we apply ReLU and compute the covariance from the ReLU-mapped design matrix. 
+            tokens. In particular, an embedding dimension above 7216 will furnish a rank-deficient design matrix. I look at embedding dimensions above and below this unique token number.
+            After embedding and centering, I apply ReLU and compute the covariance from the ReLU-mapped design matrix. 
 
 
             <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
@@ -304,8 +304,8 @@
                 <figcaption>Figure 19. The empirical fractional excess exhibits some oscillatory behavior.</figcaption>
               </figure>
             </div>
-              With $n_{\text{embed}} = 8k$ we have an implied $q \sim 1.1$. We produce the above theory curve with $q = 1.14$ and $\alpha = 1$.  We see quite a good fit, and again
-              log-periodic structure to the excess density at smaller eigenvalues.  We can make a separate comparison with an embedding dimension $n_{\text{embed}} = 4k$.  In this case we get Fig. 15 and Fig. 16.
+              With $n_{\text{embed}} = 8k$ there is an implied $q \sim 1.1$. We produce the above theory curve with $q = 1.14$ and $\alpha = 1$.  We see quite a good fit, and again
+              log-periodic structure to the excess density at smaller eigenvalues.  We can make a separate comparison with an embedding dimension $n_{\text{embed}} = 4k$.  In this case we get Fig. 20 and Fig. 21.
               
               <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
                 <figure style="flex: 1 1 0; text-align: center;">
@@ -318,7 +318,13 @@
                   <figcaption>Figure 21. Again, some oscillatory behavior is present in the fractional empirical excess.</figcaption>
                 </figure>
               </div>
-              In this case there is an implied overparameterization ratio $q \sim .55$. We use a fit with $q = .58$ and $\alpha = .98$. Again we see similar systematic deviations at small eigenvalues.
+              There is an implied overparameterization ratio $q \sim .55$. We use a fit with $q = .58$ and $\alpha = .98$. Again we see similar systematic deviations at small to intermediate eigenvalues.
+              <h2>Log-periodicity and Discrete Scale Invariance</h2>
+              If these deviations are robust and indicative of something universal in data, one possibility is discrete scale invariance.  Schematically, discrete scale invariance is the presence of a scaling symmetry only for integer powers of a value of the scaling parameter.  That is, whereas an
+              ordinary power-law $f(r) = r^{-\alpha}$ respects the scaling symmetry
+              $$ f(\lambda r) = \lambda^{-\alpha} f(r)$$
+              the discrete case would say that this holds only for $\lambda = \lambda_*^n$ for some $\lambda_*$ and $n$ an integer. Clearly a normal power-law is not restricted to this, but the following function is 
+              $$f(r) = r^{-\alpha}\left[1+A\sin\left(\frac{\log r}{\log \lambda*} \right) \right]
               <h2>Summary</h2>
               Getting enough control on the computation of the theoretical spectral density for power-law structured input data was sufficient to make some refined observations about natural data. The non-linear feature maps 
               not only extend the power-law behavior, as observed before, but indeed improve the fit to a power-law spectral density. It would be interesting to probe whether the log-periodic oscillatory structure is universal 

@@ -218,14 +218,14 @@
           <figcaption>Figure 8. Rank-ordered, CIFAR-10 training set covariance eigenvalues.</figcaption>
         </figure>
 
-        <p>There is a power-law stretch initially, but that tail is more than an artifact of finite over-parameterization, as demonstrated by the spectral density in Fig. 9. </p>
+        <p>Despite the power-law stretch initially, the tail is more than an artifact of finite over-parameterization, as demonstrated by the spectral density in Fig. 9. </p>
           <figure>
             <!-- put your image into the repo’s images folder -->
             <img src="figures/cifar_spec_density.png" alt="white wishart">
             <figcaption>Figure 9. Spectral density for CIFAR-10 training set covariance eigenvalues with theory curve fitting the cutoff to agree empirically while using the exponent implied by the large eigenvalue behavior in the rank-ordered plot
               and the implied $q$ value from the input dimension and training set size.</figcaption>
           </figure>
-          <p>The agreement is very poor for the raw CIFAR data, but as has been noted previously, the non-linear activations so central to neural networks are capable of extending the power-law. This is demonstrated clearly by the plot of rank-ordered 
+          <p>The agreement is very poor for the raw CIFAR data, but as has been noted previously, the non-linear activations so central to neural networks are capable of extending the power-law [3]. This is demonstrated clearly by the plot of rank-ordered 
             eigenvalues, presented in Fig. 10.
           </p>
           <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
@@ -264,8 +264,8 @@
               Perhaps the phenomenon of log-periodic oscillations in the spectra of natural data around a power-law has a universality.
             </p>
             <h3>MNIST</h3>
-            <p>The MNIST dataset is more amusing, as the training set of 60k images does not have a full-rank covariance matrix in feature space. This is not a widely advertised fact, though 
-              it has been noted elsewhere.  The raw input spectral density is in Fig. 15. We see the transition in the scaling of the empirical density characteristic of equiparameterization.
+            <p>The MNIST dataset has the amusing property that despite its training set size far exceeding its input dimension, it  does not have a full-rank covariance matrix. This is not a widely advertised fact, though 
+              it has been noted elsewhere [9].  The raw input spectral density is in Fig. 15. We see the transition in the scaling of the empirical density characteristic of equiparameterization.
               The rank of the covariance in feature space can vary by a few depending on the finite precision, but is around 711.</p>
             <figure>
               <!-- put your image into the repo’s images folder -->
@@ -284,8 +284,8 @@
                 <figcaption>Figure 17. The fractional empirical excess is less well motivated for this poor fit, but in the region of better fit still exhibits some evidence of log periodic oscillation.</figcaption>
               </figure>
             </div>
-            <p>Despite the inferior fit, I present the fractional empirical excess as well. This certainly not worth looking at in the small eigenvalue regime which violently disagrees as the density scales more flatly than $\lambda^{-1/2}$, but
-              for the larger eigenvalues the dispersion does have some evidence of log-periodic oscillation that might survive a more rigorous analysis.
+            <p>Despite the inferior fit, I present the fractional empirical excess as well. This is certainly not worth looking at in the small eigenvalue regime which violently disagrees as the density scales more flatly than $\lambda^{-1/2}$, but
+              for the intermediate eigenvalues the dispersion does have some evidence of log-periodic oscillation that might survive a more rigorous analysis.
             </p>
 
             <h2>Natural Data: Text</h2>
@@ -306,8 +306,8 @@
                 <figcaption>Figure 19. The empirical fractional excess exhibits some oscillatory behavior.</figcaption>
               </figure>
             </div>
-              With $n_{\text{embed}} = 8k$ there is an implied $q \sim 1.1$. We produce the above theory curve with $q = 1.14$ and $\alpha = 1$.  We see quite a good fit, and again
-              log-periodic structure to the excess density at smaller eigenvalues.  We can make a separate comparison with an embedding dimension $n_{\text{embed}} = 4k$.  In this case we get Fig. 20 and Fig. 21.
+              With $n_{\text{embed}} = 8k$ there is an implied $q \sim 1.1$. I produce the above theory curve with $q = 1.14$ and $\alpha = 1$.   There is quite a good fit, and again
+              log-periodic structure to the excess density at smaller eigenvalues.  A separate comparison can be made with an embedding dimension $n_{\text{embed}} = 4k$.  This is presented in Fig. 20 and Fig. 21.
               
               <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start;">
                 <figure style="flex: 1 1 0; text-align: center;">
@@ -320,7 +320,7 @@
                   <figcaption>Figure 21. Again, some oscillatory behavior is present in the fractional empirical excess.</figcaption>
                 </figure>
               </div>
-              There is an implied overparameterization ratio $q \sim .55$. We use a fit with $q = .58$ and $\alpha = .98$. Again we see similar systematic deviations at small to intermediate eigenvalues.
+              There is an implied overparameterization ratio $q \sim .55$. I use a fit with $q = .58$ and $\alpha = .98$. Similar systematic deviations are present at small to intermediate eigenvalues.
               <h2>Log-periodicity and Discrete Scale Invariance</h2>
               If these deviations are robust and indicative of something universal in data, one possibility is discrete scale invariance.  Schematically, discrete scale invariance is the presence of a scaling symmetry only for integer powers of a value of the scaling parameter.  That is, whereas an
               ordinary power-law $f(r) = r^{-\alpha}$ respects the scaling symmetry
@@ -348,6 +348,11 @@
               <p>[7] E. Dobriban, "Efficient computation of limit spectra
                 of sample covariance matrices" (2015)</p>
               <p>[8] M. Potters, J.P. Bouchaud, "A First Course in Random Matrix Theory" (2020) </p>
+              <9>[9]P. Izmailov,
+                P. Nicholson,
+                S. Lotfi,
+                A. Gordon Wilson, "Dangers of Bayesian Model Averaging
+                under Covariate Shift" (2010)</9>
         </div>
       </article>
     </div>
